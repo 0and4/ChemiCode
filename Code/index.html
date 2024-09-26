@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roommate Matcher</title>
+</head>
+<body>
+    <h1>룸메이트 매칭 시스템</h1>
+    <form action="/result" method="POST">
+        <label>수면 패턴은 어떤가요? (아침형/저녁형):</label>
+        <input type="text" name="sleep_pattern" required><br><br>
+
+        <label>정리정돈을 얼마나 잘하나요? (깔끔/자유로움):</label>
+        <input type="text" name="cleanliness" required><br><br>
+
+        <label>소음에 얼마나 민감한가요? (매우 민감/거의 무관):</label>
+        <input type="text" name="noise_tolerance" required><br><br>
+
+        <label>생활 패턴은 어떤가요? (혼자 있음 선호/사교적인 시간 선호):</label>
+        <input type="text" name="social_life" required><br><br>
+
+        <button type="submit">제출</button>
+    </form>
+</body>
+</html>
