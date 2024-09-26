@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매칭 결과</title>
+</head>
+<body>
+    <h1>매칭 결과</h1>
+
+    <h2>당신의 답변</h2>
+    <p><strong>수면 패턴:</strong> {{ user_data.sleep_pattern }}</p>
+    <p><strong>정리정돈 습관:</strong> {{ user_data.cleanliness }}</p>
+    <p><strong>소음 민감도:</strong> {{ user_data.noise_tolerance }}</p>
+    <p><strong>생활 패턴:</strong> {{ user_data.social_life }}</p>
+
+    <h2>매칭된 룸메이트의 답변</h2>
+    <p><strong>수면 패턴:</strong> {{ matched_user.sleep_pattern }}</p>
+    <p><strong>정리정돈 습관:</strong> {{ matched_user.cleanliness }}</p>
+    <p><strong>소음 민감도:</strong> {{ matched_user.noise_tolerance }}</p>
+    <p><strong>생활 패턴:</strong> {{ matched_user.social_life }}</p>
+
+    <h2>매칭 점수: {{ match_score }}%</h2>
+
+    <a href="/">다시 매칭하기</a>
+</body>
+</html>
