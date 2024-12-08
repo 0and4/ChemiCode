@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>룸메이트 매칭 대기 중</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='신남(얼굴).png') }}" alt="크눙메이트 로고">
+        <h1>크눙메이트</h1>
+    </header>
+    <div class="container">
+        <h1>매칭을 기다리는 중입니다...</h1>
+        <p>매칭이 완료되면 자동으로 결과 페이지로 이동합니다.</p>
+
+        <!-- 프로그레스 바 추가 -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <script>
+            // 프로그레스바 애니메이션 시작
+            let progressBar = document.getElementById('progress-bar');
+            let width = 0;
+            let interval = setInterval(function() {
+                if (width >= 100) {
+                    clearInterval(interval);
+                } else {
+                    width += 2; // 5초 동안 100%를 채우기 위해 2%씩 증가
+                    progressBar.style.width = width + '%';
+                }
+            }, 100); // 0.1초마다 업데이트하여 부드러운 애니메이션 효과
+
+            // 5초 후에 자동으로 매칭 결과 페이지로 리디렉션
+            setTimeout(function() {
+                window.location.href = "/match_result";
+            }, 5000);
+            /*
+            // 5초마다 매칭 상태를 확인하여 완료되면 결과 페이지로 이동
+            setInterval(function() {
+                fetch('/check_match_status')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.matching_complete) {
+                            window.location.href = '/match_result';  // 매칭이 완료되면 결과 페이지로 이동
+                        }
+                    });
+            }, 5000);  // 5초마다 서버에 상태 확인 요청
+            */
+        </script>
+    </div>
+</body>
+</html>

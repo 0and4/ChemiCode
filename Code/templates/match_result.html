@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>룸메이트 매칭 결과</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FDEACF; /* 캐릭터 몸 색상에서 추출한 밝은 주황색 */
+            color: #333;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        header {
+            display: flex;
+            justify-content: center; /* 가로로 중앙 정렬 */
+            align-items: center; /* 세로로 중앙 정렬 */
+            padding: 20px;
+            background-color: #FFC43D; /* 캐릭터의 밝은 노란색 사용 */
+            border-bottom: 4px solid #8B5E34; /* 테두리에 갈색을 사용하여 강조 */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+        }
+        header img {
+            height: 60px;
+            margin-right: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #4C3A28; /* 어두운 갈색으로 명확한 대비 */
+        }
+        .container {
+            background-color: #fff; /* 캐릭터 얼굴에서 추출한 밝은 베이지색 */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1, h2 {
+            font-size: 24px;
+            color: #704214; /* 캐릭터 코와 테두리에서 추출한 진한 갈색 */
+            text-align: center;
+        }
+    
+        p {
+            font-size: 18px;
+            color: #704214; /* 진한 갈색 */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .match-rate {
+            text-align: center;
+            font-size: 18px;
+            color: #D38A00; /* 캐릭터 몸 색상에서 추출한 진한 주황색 */
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+    
+        table, th, td {
+            border: 1px solid #704214; /* 테두리에 진한 갈색 적용 */
+        }
+    
+        th {
+            background-color: #D3C4B2; /* 자켓에서 추출한 밝은 색 */
+            color: #704214; /* 진한 갈색 */
+        }
+    
+        td {
+            background-color: #FFF8DC; /* 캐릭터 얼굴에서 추출한 밝은 베이지색 */
+            color: #704214; /* 진한 갈색 */
+        }
+    
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    
+        .home-btn, .logout-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0056b3; /* 캐릭터 자켓의 파란색 */
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+    
+        .home-btn:hover, .logout-btn:hover {
+            background-color: #004080; /* 파란색의 어두운 버전 */
+        }
+    
+        a {
+            color: #0056b3; /* 캐릭터 자켓 파란색 */
+            text-decoration: none;
+            font-weight: bold;
+        }
+    
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='신남(얼굴).png') }}" alt="크눙메이트 로고">
+        <h1>크눙메이트</h1>
+    </header>
+    <div class="container">
+        <h1>매칭 결과</h1>
+
+        <p>당신의 룸메이트는 <strong>202400002</strong>입니다.</p>
+        <p class="match-rate">매칭률: <strong>85%</strong></p>
+
+        <h2>룸메이트 정보:</h2>
+        <table>
+            <tr><th>항목</th><th>응답</th></tr>
+            <tr><td>성별</td><td>남성</td></tr>
+            <tr><td>취침 시간</td><td>밤 11시 이전</td></tr>
+            <tr><td>생활 패턴</td><td>아침형</td></tr>
+            <tr><td>소음 민감도</td><td>이어폰 착용 희망</td></tr>
+            <tr><td>룸메이트 관계</td><td>편하게 말 놓는 사이</td></tr>
+            <tr><td>정리정돈 취향</td><td>깔끔</td></tr>
+            <tr><td>야식 여부</td><td>자주 먹는다</td></tr>
+        </table>
+
+        <div class="button-container">
+            <a href="/menu" class="home-btn">홈으로</a>
+            <a href="/logout" class="logout-btn">로그아웃</a>
+        </div>
+    </div>
+    <!--
+    <div class="container">
+        <h1>매칭 결과</h1>
+        
+        {% if roommate %}
+            <p>당신의 룸메이트는 <strong>{{ roommate }}</strong>입니다.</p>
+
+            <h2>룸메이트 정보:</h2>
+            <ul>
+                <li>성별: {{ preferences.gender }}</li>
+                <li>흡연 여부: {{ preferences.smoking }}</li>
+                <li>취침 시간대: {{ preferences.bedtime }}</li>
+                <li>생활 패턴: {{ preferences.lifestyle }}</li>
+                <li>소음 민감도: {{ preferences.noise_sensitivity }}</li>
+                <li>룸메이트 관계: {{ preferences.relationship }}</li>
+                <li>정리정돈: {{ preferences.cleanliness }}</li>
+                <li>야식 빈도: {{ preferences.late_snack }}</li>
+            </ul>
+        {% else %}
+            <p>매칭된 룸메이트가 없습니다.</p>
+        {% endif %}
+
+        <a href="/logout">로그아웃</a>
+    </div>
+-->
+</body>
+</html>

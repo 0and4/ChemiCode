@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>룸메이트 매칭</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='신남(얼굴).png') }}" alt="크눙메이트 로고">
+        <h1>크눙메이트</h1>
+    </header>
+    <div class="container">
+        <h1>룸메이트 선호 선택</h1>
+        <form action="/preferences" method="POST">
+
+            <div class="question-group" id="gender-group">
+                <h2>1. 당신의 성별은 무엇입니까?</h2>
+                <input type="radio" name="gender" id="gender_male" value="남" required>
+                <label for="gender_male">남</label>
+                <input type="radio" name="gender" id="gender_female" value="여">
+                <label for="gender_female">여</label>
+            </div>
+
+            <div class="question-group" id="smoking-group">
+                <h2>2. 당신의 흡연 여부를 알려주세요</h2>
+                <input type="radio" name="smoking" id="smoking_yes" value="흡연자" required>
+                <label for="smoking_yes">흡연자</label>
+                <input type="radio" name="smoking" id="smoking_no" value="비흡연자">
+                <label for="smoking_no">비흡연자</label>
+            </div>
+            
+            <div class="question-group" id="bedtime-group">
+                <h2>3. 당신의 취침 시간대를 알려주세요</h2>
+                <input type="radio" name="bedtime" id="bedtime_day" value="낮" required>
+                <label for="bedtime_day">낮(~18)</label>
+                <input type="radio" name="bedtime" id="bedtime_evening" value="저녁">
+                <label for="bedtime_evening">저녁(18~22)</label>
+                <input type="radio" name="bedtime" id="bedtime_night" value="밤">
+                <label for="bedtime_night">밤(23~)</label>
+            </div>
+            
+            <div class="question-group" id="lifestyle-group">
+                <h2>4. 당신의 생활 패턴을 알려주세요</h2>
+                <input type="radio" name="lifestyle" id="lifestyle_morning" value="아침형" required>
+                <label for="lifestyle_morning">아침형</label>
+                <input type="radio" name="lifestyle" id="lifestyle_evening" value="저녁형">
+                <label for="lifestyle_evening">저녁형</label>
+            </div>
+            
+            <div class="question-group" id="noise-sensitivity-group">
+                <h2>5. 방에서 룸메이트가 내는 소음에 민감하신가요?</h2>
+                <input type="radio" name="noise_sensitivity" id="noise_sensitivity_earphones" value="이어폰 착용 희망" required>
+                <label for="noise_sensitivity_earphones">이어폰 착용 희망</label>
+                <input type="radio" name="noise_sensitivity" id="noise_sensitivity_indifferent" value="상관없다">
+                <label for="noise_sensitivity_indifferent">상관없다</label>
+            </div>
+            
+            <div class="question-group" id="relationship-group">
+                <h2>6. 룸메이트와 어떤 관계가 되길 바라나요?</h2>
+                <input type="radio" name="relationship" id="relationship_friendly" value="편하게 말 놓는 사이" required>
+                <label for="relationship_friendly">편하게 말 놓는 사이</label>
+                <input type="radio" name="relationship" id="relationship_needs" value="필요한 말만 하는 사이">
+                <label for="relationship_needs">필요한 말만 하는 사이</label>
+            </div>
+            
+            <div class="question-group" id="cleanliness-group">
+                <h2>7. 당신의 정리정돈 취향은 어느 정도인가요?</h2>
+                <input type="radio" name="cleanliness" id="cleanliness_strict" value="무조건 깔끔해야 한다" required>
+                <label for="cleanliness_strict">무조건 깔끔해야 한다</label>
+                <input type="radio" name="cleanliness" id="cleanliness_relaxed" value="조금은 어질러도 괜찮다">
+                <label for="cleanliness_relaxed">조금은 어질러도 괜찮다</label>
+            </div>
+            
+            <div class="question-group" id="late-snack-group">
+                <h2>8. 당신이 야식을 먹는 빈도는 어떤가요?</h2>
+                <input type="radio" name="late_snack" id="late_snack_often" value="자주 먹는다" required>
+                <label for="late_snack_often">자주 먹는다</label>
+                <input type="radio" name="late_snack" id="late_snack_sometimes" value="가끔 먹는다">
+                <label for="late_snack_sometimes">가끔 먹는다</label>
+                <input type="radio" name="late_snack" id="late_snack_never" value="아예 먹지 않는다">
+                <label for="late_snack_never">아예 먹지 않는다</label>
+            </div>            
+
+            <button type="submit" class="submit-button">제출</button>
+        </form>
+        <hr>
+        <div class="button-container">
+            <a href="/menu" class="home-btn">홈으로</a>
+            <a href="/logout" class="logout-btn">로그아웃</a>
+        </div>
+    </div>
+    <script>
+        // 모든 질문 그룹에 대해 이벤트 리스너 추가
+        const questionGroups = document.querySelectorAll('.question-group');
+        questionGroups.forEach(group => {
+            const radios = group.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    // 현재 그룹의 라벨에 선택된 상태를 추가
+                    group.querySelectorAll('label').forEach(label => {
+                        label.classList.remove('selected'); // 모든 라벨의 선택 상태 제거
+                    });
+                    const selectedLabel = group.querySelector(`label[for="${this.id}"]`);
+                    selectedLabel.classList.add('selected'); // 선택된 라벨에 선택 상태 추가
+                });
+            });
+        });
+    </script>
+</body>
+</html>

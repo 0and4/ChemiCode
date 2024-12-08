@@ -1,0 +1,205 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FDEACF; /* 캐릭터 몸 색상에서 추출한 밝은 주황색 */
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+header {
+    display: flex;
+    justify-content: center; /* 가로로 중앙 정렬 */
+    align-items: center; /* 세로로 중앙 정렬 */
+    padding: 20px;
+    background-color: #FFC43D; /* 캐릭터의 밝은 노란색 사용 */
+    border-bottom: 4px solid #8B5E34; /* 테두리에 갈색을 사용하여 강조 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+}
+header img {
+    height: 60px;
+    margin-right: 20px;
+}
+header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #4C3A28; /* 어두운 갈색으로 명확한 대비 */
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #FFF8DC; /* 캐릭터 얼굴에서 추출한 밝은 베이지색 */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    color: #333; /* 캐릭터 코의 진한 갈색 */
+    text-align: center;
+}
+
+form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin: 10px 0 5px;
+    display: inline-block;
+    color: #704214; /* 진한 갈색 */
+}
+
+input, select {
+    display: inline-block;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #FFCC99; /* 몸 색상에서 추출한 약간 진한 주황색 */
+    border-radius: 4px;
+    background-color: #fff; /* 밝은 베이지색 */
+}
+
+button {
+    padding: 10px;
+    background-color: #0056b3; /* 자켓의 파란색 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #004080; /* 자켓 파란색의 어두운 버전 */
+}
+
+a {
+    color: #0056b3; /* 자켓의 파란색 */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* 질문 그룹 스타일 */
+.question-group {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff; /* 캐릭터 몸 색상에서 추출한 주황색 */
+    border-radius: 8px;
+    border: 1px solid #FFCC99; /* 몸 색상에서 추출한 약간 진한 주황색 */
+}
+
+.question-group h2 {
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #704214; /* 캐릭터 코의 진한 갈색 */
+}
+
+/* 라벨 스타일 */
+.question-group label {
+    margin-right: 20px; /* 라벨 간격 조정 */
+    width: 130px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #FFCC99; /* 테두리 진한 주황색 */
+    border-radius: 4px;
+    transition: background-color 0.3s, border 0.3s;
+    background-color: #FDEACF;
+}
+
+.question-group input[type="radio"] {
+    display: none; /* 기본 라디오 버튼 숨기기 */
+}
+
+/* 마우스를 올렸을 때의 색상 */
+.question-group label:hover {
+    background-color: #0056b3; /* 자켓 파란색 */
+    color: #fff;
+}
+
+/* 선택된 라벨에 색상 적용 */
+.question-group input[type="radio"]:checked + label {
+    background-color: #0056b3; /* 자켓 파란색 */
+    color: #fff;
+}
+
+/* 선택된 상태에서 마우스를 올렸을 때 색상 유지 */
+.question-group input[type="radio"]:checked + label:hover {
+    background-color: #004080; /* 어두운 파란색 */
+}
+
+/* 제출 버튼 스타일 */
+.submit-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0056b3; /* 자켓의 파란색 */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.submit-button:hover {
+    background-color: #004080; /* 자켓 파란색의 어두운 버전 */
+}
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.home-btn, .logout-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0056b3; /* 캐릭터 자켓의 파란색 */
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-right: 10px;
+}
+
+.home-btn:hover, .logout-btn:hover {
+    background-color: #004080; /* 파란색의 어두운 버전 */
+}
+
+a {
+    color: #0056b3; /* 캐릭터 자켓 파란색 */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+/* 프로그레스 바 스타일 */
+.progress-container {
+    width: 80%;
+    background-color: #f3f3f3;
+    border-radius: 25px;
+    margin: 20px auto;
+    height: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #FFC43D; /* 캐릭터의 밝은 노란색 사용 */
+    border-radius: 25px;
+    transition: width 0.1s ease;
+}

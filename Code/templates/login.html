@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='신남(얼굴).png') }}" alt="크눙메이트 로고">
+        <h1>크눙메이트</h1>
+    </header>
+    <div class="container">
+        <h1>로그인</h1>
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="학번">
+            <input type="password" name="password" placeholder="비밀번호">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>

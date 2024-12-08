@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비교과 프로그램 매칭</title>
+    <link rel="stylesheet" href="../static/pgstyles.css">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='신남(얼굴).png') }}" alt="크눙메이트 로고">
+        <h1>크눙메이트</h1>
+    </header>
+    <!-- 로딩 화면 -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <img src="{{ url_for('static', filename='등교.png') }}" alt="크눙메이트 로고">
+            <p>Loading...</p>
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>비교과 프로그램 추천</h1>
+        <form method="POST" action="/programs" onsubmit="showLoader()">
+            <input type="text" id="user-input" name="query" placeholder="찾고 싶은 프로그램을 입력하세요" value="{{ request.form['query'] if request.method == 'POST' else '' }}">
+        <button id="search-button" type="submit">검색</button>
+        </form>
+        <div id="result">
+            <h2>추천된 프로그램</h2>
+            <ul id="program-list">
+                {% if programs is not none %}
+                    {% if not programs.empty %}
+                        {% for index, row in programs.iterrows() %}
+                            <li>
+                                <p><strong>{{ row['Unnamed: 1'] }} ({{ row['Unnamed: 0'] }})</strong></p>
+                                <p>{{ row['Unnamed: 8'] }}</p>
+                                <p><em>증정 마일리지:</em> {{ row['Unnamed: 10'] }}-{{ row['Unnamed: 11'] }}-{{ row['Unnamed: 12'] }}</p>
+                                <p><a href="{{ row['Unnamed: 13'] }}" target="_blank">자세히 보기</a></p>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li>추천된 프로그램이 없습니다.</li>
+                    {% endif %}
+                {% else %}
+                    <li>추천된 프로그램이 없습니다.</li>
+                {% endif %}
+            </ul>            
+        </div>
+        <div class="button-container">
+            <a href="/menu" class="home-btn">홈으로</a>
+            <a href="/logout" class="logout-btn">로그아웃</a>
+        </div>
+    </div>
+
+    <script src="../static/pgscript.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header style="display: flex; align-items: center; padding: 10px; background-color: #f1f1f1; border-bottom: 2px solid #ccc;">
+        <div style="display: flex; align-items: center;">
+            <!-- 로고 이미지 삽입 -->
+            <img src="{{ url_for('static', filename='신남(얼굴).png') }}" alt="크눙메이트 로고" style="height: 50px; margin-right: 15px;">
+            <!-- 프로그램 이름 -->
+            <h1 style="margin: 0; font-size: 24px; color: #333;">크눙메이트</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h1>관리자 페이지</h1>
+        <form action="/perform_matching" method="POST">
+            <button type="submit">매칭 실행</button>
+        </form>
+
+        <h2>매칭 결과</h2>
+        <ul>
+            {% for user, match_info in matches.items() %}
+                {% if match_info %}
+                    <li>{{ user }}와 {{ match_info.id }}가 매칭되었습니다.</li>
+                {% else %}
+                    <li>{{ user }}는 매칭되지 않았습니다.</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        <a href="/logout">로그아웃</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>크눙메이트</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #FFF7E1; /* 부드러운 노란색 배경으로 눈에 편안함 */
+            color: #4C3A28; /* 갈색 톤의 텍스트로 따뜻한 느낌 */
+            margin: 0;
+        }
+        header {
+            display: flex;
+            justify-content: center; /* 가로로 중앙 정렬 */
+            align-items: center; /* 세로로 중앙 정렬 */
+            padding: 20px;
+            background-color: #FFC43D; /* 캐릭터의 밝은 노란색 사용 */
+            border-bottom: 4px solid #8B5E34; /* 테두리에 갈색을 사용하여 강조 */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+        }
+        header img {
+            height: 60px;
+            margin-right: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #4C3A28; /* 어두운 갈색으로 명확한 대비 */
+        }
+        div {
+            margin-top: 50px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px; /* 메뉴 간의 간격을 줘서 시각적으로 분리 */
+        }
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 250px;
+            height: 220px;
+            border: 2px solid #8B5E34; /* 갈색 테두리 */
+            text-align: center;
+            vertical-align: middle;
+            text-decoration: none;
+            color: #FFFFFF; /* 흰색 텍스트로 버튼과 명확히 대비 */
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 15px; /* 둥근 테두리로 부드러운 느낌 */
+            transition: all 0.3s ease; /* 호버 시 부드러운 애니메이션 효과 */
+        }
+        a:hover {
+            transform: translateY(-5px); /* 호버 시 살짝 올라가는 효과 */
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 강화 */
+        }
+        #roommate {
+            background: #FFAE00; /* 캐릭터의 노란색을 반영한 밝은 주황색 */
+        }
+        #program {
+            background: #1E90FF; /* 파란색을 사용하여 비교과 프로그램 버튼을 강조 */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='신남(얼굴).png') }}" alt="크눙메이트 로고">
+        <h1>크눙메이트</h1>
+    </header>
+    <div>
+        <nav>
+            <a href="/preferences" id="roommate">룸메이트 매칭</a>
+            <a href="/programs" id="program">비교과 프로그램 매칭</a>
+        </nav>
+    </div>
+</body>
+</html>

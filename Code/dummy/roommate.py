@@ -40,33 +40,39 @@ prompt = PromptTemplate(
 # 머신러닝 모델 경로
 model_path = 'knn_model.pkl'
 
-# 머신러닝 모델 로드 또는 새로 생성
-try:
-    with open(model_path, 'rb') as f:
-        knn_model = pickle.load(f)
-    print("Model loaded.")
-except (EOFError, FileNotFoundError):
-    knn_model = KNeighborsClassifier(n_neighbors=2)  # n_neighbors 값을 2로 설정
-    print("New model created.")
-
-# KNN 모델 훈련 데이터가 없으면 생성 (임시 데이터)
-X_train = np.array([
-    [0, 80, 90, 60],  # 아침형, 깔끔, 매우 민감, 혼자 있음 선호
-    [1, 20, 10, 40],  # 저녁형, 자유로움, 거의 무관, 사교적인 시간 선호
+# 기존 사용자 데이터 (임시 데이터)
+existing_users = np.array([
+    [0, 80, 90, 60],  # 사용자 1: 아침형, 깔끔, 매우 민감, 혼자 있음 선호
+    [1, 20, 10, 40],  # 사용자 2: 저녁형, 자유로움, 거의 무관, 사교적인 시간 선호
+    [0, 70, 80, 50],  # 사용자 3: 아침형, 깔끔, 보통, 혼자 있음 선호
+    [1, 30, 20, 40],  # 사용자 4: 저녁형, 자유로움, 보통, 사교적인 시간 선호
 ])
-y_train = np.array([1, 0])  # 임의의 결과값
-knn_model.fit(X_train, y_train)
-print("Model trained.")
 
-# 모델 저장
+# 레이블 (사용자 ID 또는 추천값)
+user_labels = np.array([1, 2, 3, 4])  # 각각 사용자 ID
+
+# KNN 모델 초기화
+knn_model = KNeighborsClassifier(n_neighbors=2)
+knn_model.fit(existing_users, user_labels)
+
+# KNN 모델 저장
 with open(model_path, 'wb') as f:
     pickle.dump(knn_model, f)
-print("Model saved.")
 
 # KNN 모델을 통해 매칭 점수 계산 함수
 def calculate_match_score(user_data):
     user_input = np.array([[user_data['sleep_pattern'], user_data['cleanliness'], user_data['noise_tolerance'], user_data['social_life']]])
-    return knn_model.predict(user_input)[0]
+    return knn_model.predict(user_input)[0]  # 가장 가까운 사용자 ID 반환
+
+# 매칭된 사용자의 답변과 점수를 가져오는 함수
+def get_matched_user_details(user_id):
+    user_answers = {
+        1: {'sleep_pattern': '아침형', 'cleanliness': '깔끔', 'noise_tolerance': '매우 민감', 'social_life': '혼자 있음 선호'},
+        2: {'sleep_pattern': '저녁형', 'cleanliness': '자유로움', 'noise_tolerance': '거의 무관', 'social_life': '사교적인 시간 선호'},
+        3: {'sleep_pattern': '아침형', 'cleanliness': '깔끔', 'noise_tolerance': '보통', 'social_life': '혼자 있음 선호'},
+        4: {'sleep_pattern': '저녁형', 'cleanliness': '자유로움', 'noise_tolerance': '보통', 'social_life': '사교적인 시간 선호'},
+    }
+    return user_answers[user_id]
 
 # LangChain과 KNN 모델을 통합하여 매칭 결과를 계산하는 대화형 흐름
 def run_conversation():
@@ -94,8 +100,17 @@ def run_conversation():
     }
 
     # KNN 모델을 통한 매칭 점수 계산
-    match_score = calculate_match_score(user_data)
-    print(f"매칭 점수: {match_score}")
+    matched_user_id = calculate_match_score(user_data)
+    
+    # 매칭된 사용자의 세부 정보를 가져오기
+    matched_user_details = get_matched_user_details(matched_user_id)
+    
+    # 매칭된 사용자와의 결과 출력
+    print(f"당신과 매칭된 룸메이트는 이렇게 답변했습니다!")
+    print(f"수면 패턴: {matched_user_details['sleep_pattern']}")
+    print(f"정리정돈 습관: {matched_user_details['cleanliness']}")
+    print(f"소음 민감도: {matched_user_details['noise_tolerance']}")
+    print(f"생활 패턴: {matched_user_details['social_life']}")
 
     # LangChain을 통한 룸메이트 추천 결과 출력
     formatted_prompt = prompt.format(**conversation)
@@ -103,14 +118,15 @@ def run_conversation():
     # 형식 확인 및 출력
     print("Formatted Prompt:", formatted_prompt)  # 추가된 디버깅 정보
 
-    if isinstance(formatted_prompt, str):
-        try:
-            response = llm.generate([formatted_prompt])
-            print("룸메이트 추천 결과:", response.generations[0][0].text)
-        except Exception as e:
-            print(f"Error during LLM generation: {e}")
-    else:
-        print("Error: The generated prompt is not a string.")
+    # 오류 방지를 위한 조건문 추가
+    #if isinstance(formatted_prompt, str) and #formatted_prompt.strip():
+        #try:
+        #    response = llm.generate([formatted_prompt])
+        #    print("룸메이트 추천 결과:", response.generations[0][0].text)
+        #except Exception as e:
+        #    print(f"Error during LLM generation: {e}")
+    #else:
+        #print("Error: The generated prompt is not a valid string.")
 
 # 대화 시작
 run_conversation()
